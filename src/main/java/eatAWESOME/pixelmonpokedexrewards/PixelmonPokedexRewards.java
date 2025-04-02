@@ -1,6 +1,9 @@
 package eatAWESOME.pixelmonpokedexrewards;
 
+import eatAWESOME.pixelmonpokedexrewards.events.CapabilityListener;
 import eatAWESOME.pixelmonpokedexrewards.events.PokedexListener;
+import eatAWESOME.pixelmonpokedexrewards.capabilities.CapabilityHandler;
+import eatAWESOME.pixelmonpokedexrewards.commands.PokedexRewards;
 import eatAWESOME.pixelmonpokedexrewards.config.RewardConfigLoader;
 import com.google.gson.JsonObject;
 import com.pixelmonmod.pixelmon.Pixelmon;
@@ -38,6 +41,8 @@ public class PixelmonPokedexRewards {
     }
 
     public static void onModLoad(FMLCommonSetupEvent event) {
+    	CapabilityHandler.register();
+    	MinecraftForge.EVENT_BUS.register(new CapabilityListener());
     	Pixelmon.EVENT_BUS.register(new PokedexListener());
     }
     
@@ -55,6 +60,7 @@ public class PixelmonPokedexRewards {
     
     @SubscribeEvent
     public static void onCommandRegister(RegisterCommandsEvent event) {
+        PokedexRewards.register(event.getDispatcher());
     }
     
     @SubscribeEvent
