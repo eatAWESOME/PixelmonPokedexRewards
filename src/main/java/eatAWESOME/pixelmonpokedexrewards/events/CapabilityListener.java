@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = PixelmonPokedexRewards.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CapabilityListener {
 
-	public static final ResourceLocation pokedexLocation = new ResourceLocation(PixelmonPokedexRewards.MOD_ID, "pokedexData");
+	public static final ResourceLocation pokedexLocation = new ResourceLocation(PixelmonPokedexRewards.MOD_ID, "pokedexdata");
 
     @SubscribeEvent
     public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
