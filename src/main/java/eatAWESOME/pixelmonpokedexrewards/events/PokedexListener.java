@@ -1,6 +1,6 @@
 package eatAWESOME.pixelmonpokedexrewards.events;
 
-import eatAWESOME.pixelmonpokedexrewards.config.ConfigLoader;
+import eatAWESOME.pixelmonpokedexrewards.PixelmonPokedexRewards;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -20,7 +20,6 @@ import com.pixelmonmod.pixelmon.api.pokemon.species.Pokedex;
 import com.pixelmonmod.pixelmon.api.pokemon.species.Species;
 import com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
-import com.pixelmonmod.pixelmon.Pixelmon;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -28,15 +27,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class PokedexListener {
 
-	public PokedexListener() {
-		ConfigLoader.loadConfig();
-		Pixelmon.EVENT_BUS.addListener(this::onPokedexEvent);
-    }
-	
+	@SubscribeEvent
 	public void onPokedexEvent(PokedexEvent.Post event) {
 		if (event.getNewStatus() == PokedexRegistrationStatus.CAUGHT && event.getOldStatus() != PokedexRegistrationStatus.CAUGHT) {
 			ServerPlayerEntity player = event.getPlayer();
@@ -61,7 +57,7 @@ public class PokedexListener {
 	}
 	
     public void reward(ServerPlayerEntity player, int pokedexCompletion) {
-    	JsonObject reward = ConfigLoader.getReward(pokedexCompletion);
+    	JsonObject reward = getRewardData(pokedexCompletion);
     	TextComponent message = new StringTextComponent("");
     	if (reward != null) {
     		if (reward.has("message")) {
@@ -237,5 +233,10 @@ public class PokedexListener {
         } else {
             System.err.println("Error giving " + pokemon.getSpecies().getTranslatedName().getString() + " to " + player.getDisplayName().getString());
         }
+    }
+
+    public static JsonObject getRewardData(int pokedexCompletion) {
+    	JsonObject rewardConfigData = PixelmonPokedexRewards.getRewardConfig();
+        return rewardConfigData.has(String.valueOf(pokedexCompletion)) ? rewardConfigData.getAsJsonObject(String.valueOf(pokedexCompletion)) : null;
     }
 }
