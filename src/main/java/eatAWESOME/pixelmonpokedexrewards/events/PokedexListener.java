@@ -58,15 +58,17 @@ public class PokedexListener {
 		                cap.ifPresent(data -> {
 		                    data.setPokedexRewardsLevel(rewardValue);
 		                    JsonObject reward = PokedexRewards.getRewardData(rewardValue);
-		                    if (reward.has("message")) {
-		            			TextComponent rewardMessage = new StringTextComponent(reward.get("message").getAsString()
-		            					.replace("Pokemon", "Pokémon")
-		                                .replace("Pokedex", "Pokédex")
-		                                .replace("pokemon", "pokémon")
-		                                .replace("pokedex", "pokédex"));
-		            			player.sendMessage(rewardMessage, player.getUUID());
-		            			player.sendMessage(new StringTextComponent("Use /pokedexrewards to claim your reward!"), player.getUUID());
-		            		}
+		                    if (reward != null) {
+			                    if (reward.has("message")) {
+			            			TextComponent rewardMessage = new StringTextComponent(reward.get("message").getAsString()
+			            					.replace("Pokemon", "Pokémon")
+			                                .replace("Pokedex", "Pokédex")
+			                                .replace("pokemon", "pokémon")
+			                                .replace("pokedex", "pokédex"));
+			            			player.sendMessage(rewardMessage, player.getUUID());
+			            			player.sendMessage(new StringTextComponent("Use /pokedexrewards to claim your reward!"), player.getUUID());
+			            		}
+		                    }
 		                });
 		                break;
 		            }
