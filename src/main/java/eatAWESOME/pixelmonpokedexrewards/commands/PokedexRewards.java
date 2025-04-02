@@ -218,22 +218,25 @@ public class PokedexRewards {
     public static void givePokemon(ServerPlayerEntity player, String species, boolean perfect, boolean shiny) {
 		Random random = new Random();
     	PokemonBuilder pokemonBuilder = PokemonBuilder.builder();
-    	if (species.equals("randomLegendaryMythicalUltraBeast")) {
-    		List<Species> legendaryMythicalUltraBeastList = new ArrayList<>();
-    		for (Species pokedexSpecies : Pokedex.actualPokedex) {
-                if (pokedexSpecies != null && (pokedexSpecies.isLegendary() || pokedexSpecies.isMythical() || pokedexSpecies.isUltraBeast())) {
-                	legendaryMythicalUltraBeastList.add(pokedexSpecies);
-                }
+    	List<Species> legendaryMythicalUltraBeastList = new ArrayList<>();
+    	List<Species> normalRandomList = new ArrayList<>();
+		for (Species pokedexSpecies : Pokedex.actualPokedex) {
+            if (pokedexSpecies != null && (pokedexSpecies.isLegendary() || pokedexSpecies.isMythical() || pokedexSpecies.isUltraBeast())) {
+            	legendaryMythicalUltraBeastList.add(pokedexSpecies);
+            } else if (pokedexSpecies != null) {
+            	normalRandomList.add(pokedexSpecies);
             }
+        }
+    	if (species.equals("randomLegendaryMythicalUltraBeast")) {
     		pokemonBuilder = pokemonBuilder.species(legendaryMythicalUltraBeastList.get(random.nextInt(legendaryMythicalUltraBeastList.size())));
     	} else if (!species.equals("random")) {
     		pokemonBuilder = pokemonBuilder.species(species);
     	} else {
-    		pokemonBuilder = pokemonBuilder.randomSpecies(false, false, false);
+    		pokemonBuilder = pokemonBuilder.species(normalRandomList.get(random.nextInt(normalRandomList.size())));
     	}
     	if (pokemonBuilder.getSpecies().getTranslatedName().getString().equals("MissingNo")) {
     		System.out.println("MissingNo caught and set to random");
-    		pokemonBuilder = pokemonBuilder.randomSpecies(false, false, false);
+    		pokemonBuilder = pokemonBuilder.species(normalRandomList.get(random.nextInt(normalRandomList.size())));
     	}
     	if (perfect) {
 			pokemonBuilder = pokemonBuilder.ivs(31, 31, 31, 31, 31, 31);
