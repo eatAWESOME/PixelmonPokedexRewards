@@ -11,11 +11,18 @@
                    {"itemID" : "minecraft:gold_ingot", "count" : 1},
                    {"itemID" : "minecraft:diamond", "count" : 1},
                    {"itemID" : "minecraft:coal", "count" : 1},
-                   {"itemID" : "minecraft:copper_ingot", "count" : 1},
                    {"itemID" : "minecraft:lapis_lazuli", "count" : 1},
                    {"itemID" : "minecraft:redstone", "count" : 1},
                    {"itemID" : "minecraft:glowstone_dust", "count" : 1},
-                   {"itemID" : "minecraft:emerald", "count" : 1}]
+                   {"itemID" : "minecraft:emerald", "count" : 1},
+                   {"itemID" : "pixelmon:aluminium_ingot", "count" : 1},
+                   {"itemID" : "pixelmon:silver_ingot", "count" : 1},
+                   {"itemID" : "pixelmon:platinum_ingot", "count" : 1},
+                   {"itemID" : "pixelmon:ruby", "count" : 1},
+                   {"itemID" : "pixelmon:sapphire", "count" : 1},
+                   {"itemID" : "pixelmon:amethyst", "count" : 1},
+                   {"itemID" : "pixelmon:crystal", "count" : 1},
+                   {"itemID" : "pixelmon:silicon", "count" : 1}]
     },
     "5" : {
         "message" : "5% Pokedex completion reward earned!",
@@ -50,6 +57,9 @@
         "message" : "15% Pokedex completion reward earned!",
         "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
                    {"itemID" : "projecte:red_matter", "count" : 1},
+                   {"itemID" : "pixelmon:red_trade_machine", "count" : 1},
+                   {"itemID" : "pixelmon:fossil_cleaner", "count" : 1},
+                   {"itemID" : "pixelmon:fossil_machine", "count" : 1},
                    {"itemID" : "pixelmon:blue_day_care", "count" : 1},
                    {"itemID" : "pixelmon:lucky_egg", "count" : 1},
                    {"itemID" : "pixelmon:orb", "count" : 1}]
@@ -66,7 +76,17 @@
         "message" : "25% Pokedex completion reward earned!",
         "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
                    {"itemID" : "projecte:red_matter", "count" : 3},
-                   {"itemID" : "pixelmon:lucky_egg", "count" : 1}],
+                   {"itemID" : "pixelmon:lucky_egg", "count" : 1},
+                   {"itemID" : "pixelmon:fire_stone", "count" : 1},
+                   {"itemID" : "pixelmon:water_stone", "count" : 1},
+                   {"itemID" : "pixelmon:moon_stone", "count" : 1},
+                   {"itemID" : "pixelmon:thunder_stone", "count" : 1},
+                   {"itemID" : "pixelmon:leaf_stone", "count" : 1},
+                   {"itemID" : "pixelmon:sun_stone", "count" : 1},
+                   {"itemID" : "pixelmon:dawn_stone", "count" : 1},
+                   {"itemID" : "pixelmon:dusk_stone", "count" : 1},
+                   {"itemID" : "pixelmon:ice_stone", "count" : 1},
+                   {"itemID" : "pixelmon:shiny_stone", "count" : 1}],
         "pokemon" : [{"species" : "randomLegendaryMythicalUltraBeast", "shiny" : true}]
     },
     "30" : {
@@ -182,7 +202,8 @@
         "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "master_ball"}, "count" : 1},
                    {"itemID" : "pixelmon:rare_candy", "count" : 5},
                    {"itemID" : "projecte:red_matter", "count" : 5},
-                   {"itemID" : "pixelmon:gold_bottle_cap", "count" : 1}],
+                   {"itemID" : "pixelmon:gold_bottle_cap", "count" : 1},
+                   {"itemID" : "projecte:tome", "count" : 1}],
         "pokemon" : [{"species" : "randomLegendaryMythicalUltraBeast", "perfect" : true, "shiny" : true}, {"species" : "ditto", "perfect" : true, "shiny" : true}]
     }
 }
