@@ -3,7 +3,9 @@ package eatAWESOME.pixelmonpokedexrewards;
 import eatAWESOME.pixelmonpokedexrewards.events.CapabilityListener;
 import eatAWESOME.pixelmonpokedexrewards.events.PokedexListener;
 import eatAWESOME.pixelmonpokedexrewards.capabilities.CapabilityHandler;
+import eatAWESOME.pixelmonpokedexrewards.commands.PokedexCmd;
 import eatAWESOME.pixelmonpokedexrewards.commands.PokedexRewards;
+import eatAWESOME.pixelmonpokedexrewards.commands.PokedexTop;
 import eatAWESOME.pixelmonpokedexrewards.config.RewardConfigLoader;
 import com.google.gson.JsonObject;
 import com.pixelmonmod.pixelmon.Pixelmon;
@@ -60,7 +62,9 @@ public class PixelmonPokedexRewards {
     
     @SubscribeEvent
     public static void onCommandRegister(RegisterCommandsEvent event) {
+        PokedexCmd.register(event.getDispatcher());
         PokedexRewards.register(event.getDispatcher());
+        PokedexTop.register(event.getDispatcher());
     }
     
     @SubscribeEvent
