@@ -4,7 +4,7 @@ license="MIT"
 issueTrackerURL="https://github.com/eatAWESOME/PixelmonPokedexRewards/issues"
 [[mods]]
 modId="pixelmonpokedexrewards"
-version="1.0.2"
+version="1.0.3"
 displayName="PixelmonPokedexRewards"
 logoFile="logo.png"
 # credits=""
