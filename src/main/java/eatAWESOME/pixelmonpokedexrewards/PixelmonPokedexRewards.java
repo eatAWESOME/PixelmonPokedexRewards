@@ -1,30 +1,24 @@
 package eatAWESOME.pixelmonpokedexrewards;
 
-import eatAWESOME.pixelmonpokedexrewards.events.CapabilityListener;
 import eatAWESOME.pixelmonpokedexrewards.events.PokedexListener;
-import eatAWESOME.pixelmonpokedexrewards.capabilities.CapabilityHandler;
 import eatAWESOME.pixelmonpokedexrewards.commands.PokedexCmd;
 import eatAWESOME.pixelmonpokedexrewards.commands.PokedexRewards;
 import eatAWESOME.pixelmonpokedexrewards.commands.PokedexTop;
 import eatAWESOME.pixelmonpokedexrewards.config.RewardConfigLoader;
+import eatAWESOME.pixelmonpokedexrewards.data.AttachmentHandler;
+
 import com.google.gson.JsonObject;
 import com.pixelmonmod.pixelmon.Pixelmon;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
-import net.minecraftforge.fml.event.server.FMLServerStoppedEvent;
-import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(PixelmonPokedexRewards.MOD_ID)
-@Mod.EventBusSubscriber(modid = PixelmonPokedexRewards.MOD_ID)
 public class PixelmonPokedexRewards {
 
 	public static final String MOD_ID = "pixelmonpokedexrewards";
@@ -34,22 +28,17 @@ public class PixelmonPokedexRewards {
 	
 	private JsonObject rewardConfig;
 	
-    public PixelmonPokedexRewards() {
+    public PixelmonPokedexRewards(IEventBus modEventBus) {
         instance = this;
     	reloadConfig();
-        MinecraftForge.EVENT_BUS.register(this);
-    	IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        bus.addListener(PixelmonPokedexRewards::onModLoad);
+
+    	AttachmentHandler.ATTACHMENT_TYPES.register(modEventBus);
+    	modEventBus.addListener(PixelmonPokedexRewards::onModLoad);
+        NeoForge.EVENT_BUS.register(this);
     }
 
     public static void onModLoad(FMLCommonSetupEvent event) {
-    	CapabilityHandler.register();
-    	MinecraftForge.EVENT_BUS.register(new CapabilityListener());
     	Pixelmon.EVENT_BUS.register(new PokedexListener());
-    }
-    
-    @SubscribeEvent
-    public static void onServerStarting(FMLServerStartingEvent event) {
     }
 
     public void reloadConfig() {
@@ -57,22 +46,10 @@ public class PixelmonPokedexRewards {
     }
     
     @SubscribeEvent
-    public static void onServerStarted(FMLServerStartedEvent event) {
-    }
-    
-    @SubscribeEvent
-    public static void onCommandRegister(RegisterCommandsEvent event) {
+    public void onCommandRegister(RegisterCommandsEvent event) {
         PokedexCmd.register(event.getDispatcher());
         PokedexRewards.register(event.getDispatcher());
         PokedexTop.register(event.getDispatcher());
-    }
-    
-    @SubscribeEvent
-    public static void onServerStopping(FMLServerStoppingEvent event) {
-    }
-
-    @SubscribeEvent
-    public static void onServerStopped(FMLServerStoppedEvent event) {
     }
     
     public static PixelmonPokedexRewards getInstance() {

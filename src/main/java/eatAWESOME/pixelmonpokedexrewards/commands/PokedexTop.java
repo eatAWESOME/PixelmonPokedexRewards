@@ -7,32 +7,33 @@ import java.util.List;
 import java.util.UUID;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
-import com.pixelmonmod.pixelmon.api.pokedex.PlayerPokedex;
-import com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage;
-import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
-import net.minecraft.command.Commands;
-import net.minecraft.command.CommandSource;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.StringTextComponent;
+import com.pixelmonmod.pixelmon.api.pokedex.PokeDexStorageProxy;
+import com.pixelmonmod.pixelmon.api.pokedex.PokedexStorage;
+import com.pixelmonmod.pixelmon.api.pokedex.status.PokedexRegistrationStatus;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 
 public class PokedexTop {
 
 	public PokedexTop() {
     }
 	
-	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("pokedextop")
 	            .executes(context -> {
 	            	File dataDir = new File("");
+	            	
 	            	if (context.getSource().getServer().isDedicatedServer()) {
-		            	dataDir = new File(context.getSource().getServer().getServerDirectory(), context.getSource().getServer().getWorldData().getLevelName() + "/playerdata");
+	            		dataDir = context.getSource().getServer().getServerDirectory().resolve(context.getSource().getServer().getWorldData().getLevelName()).resolve("playerdata").toFile();
 	            	} else {
-	            		dataDir = new File(context.getSource().getServer().getServerDirectory(), "saves/" + context.getSource().getServer().getWorldData().getLevelName() + "/playerdata");
+	            		dataDir = context.getSource().getServer().getServerDirectory().resolve("saves").resolve(context.getSource().getServer().getWorldData().getLevelName()).resolve("playerdata").toFile();
 	            	}
 	            	File[] files = dataDir.listFiles((dir, name) -> name.endsWith(".dat"));
 	            	List<PlayerPokedexData> pokedexData = new ArrayList<>();
 	            	if (files == null) {
-	                	context.getSource().sendFailure(new StringTextComponent("Error loading player data"));
+	                	context.getSource().sendFailure(Component.literal("Error loading player data"));
 	                    return 0;
 	                }
 	                
@@ -40,11 +41,10 @@ public class PokedexTop {
 	                    try {
 	                        String uuidStr = file.getName().replace(".dat", "");
 	                        UUID uuid = UUID.fromString(uuidStr);
-	                        PlayerPartyStorage partyStorage = StorageProxy.getParty(uuid);
-	    	            	PlayerPokedex playerPokedex = partyStorage.playerPokedex;
-	    	            	float seenPercentage = playerPokedex.getSeenCompletionPercentage();
-	    	                float caughtPercentage = playerPokedex.getCaughtCompletionPercentage();
-	                        String playerName = partyStorage.getPlayerName();
+	                        PokedexStorage playerPokedex = PokeDexStorageProxy.getStorage(uuid).join();
+	                        double seenPercentage = playerPokedex.getPercentage(PokedexRegistrationStatus.SEEN) * 100.0;
+	    	            	double caughtPercentage = playerPokedex.getPercentage(PokedexRegistrationStatus.CAUGHT) * 100.0;
+	                        String playerName = playerPokedex.getOwner().getDisplayName().getString();
 	                        pokedexData.add(new PlayerPokedexData(playerName, caughtPercentage, seenPercentage));
 	                    } catch (Exception e) {
 	                        e.printStackTrace();
@@ -55,7 +55,7 @@ public class PokedexTop {
                             .reversed());
 	                
 	                StringBuilder leaderboardMessage = new StringBuilder();
-	                leaderboardMessage.append("Pokédex Progress Leaderboard:");
+	                leaderboardMessage.append("PokÃ©dex Progress Leaderboard:");
 	                
 	                int maxEntries = Math.min(10, pokedexData.size());
 	                for (int i = 0; i < maxEntries; i++) {
@@ -64,7 +64,7 @@ public class PokedexTop {
 	                }
 	                
 	                if (context.getSource().getEntity() != null) {
-	                	ServerPlayerEntity requester = context.getSource().getPlayerOrException();
+	                	ServerPlayer requester = context.getSource().getPlayerOrException();
 		                String requesterName = requester.getGameProfile().getName();
 		                int requesterRank = -1;
 		                for (int i = 0; i < pokedexData.size(); i++) {
@@ -79,17 +79,17 @@ public class PokedexTop {
 		                    leaderboardMessage.append(String.format("\n%d. %s, %.2f%%", requesterRank, data.playerName, data.caughtPercentage));
 		                }
 	                }
-	                context.getSource().sendSuccess(new StringTextComponent(leaderboardMessage.toString()), false);
+	                context.getSource().sendSuccess(() -> Component.literal(leaderboardMessage.toString()), false);
 	                return Command.SINGLE_SUCCESS;
 	            }));
 	}
 	
 	public static class PlayerPokedexData {
         String playerName;
-        float caughtPercentage;
-        float seenPercentage;
+        double caughtPercentage;
+        double seenPercentage;
 
-        public PlayerPokedexData(String playerName, float caughtPercentage, float seenPercentage) {
+        public PlayerPokedexData(String playerName, double caughtPercentage, double seenPercentage) {
             this.playerName = playerName;
             this.caughtPercentage = caughtPercentage;
             this.seenPercentage = seenPercentage;

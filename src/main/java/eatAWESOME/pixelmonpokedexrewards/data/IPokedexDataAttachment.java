@@ -1,8 +1,8 @@
-package eatAWESOME.pixelmonpokedexrewards.capabilities;
+package eatAWESOME.pixelmonpokedexrewards.data;
 
 import java.util.List;
 
-public interface IPokedexData {
+public interface IPokedexDataAttachment {
     int getPokedexRewardsLevel();
     void setPokedexRewardsLevel(int level);
     List<Integer> getClaimedPokedexRewards();

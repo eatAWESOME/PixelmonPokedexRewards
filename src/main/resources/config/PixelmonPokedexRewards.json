@@ -1,11 +1,11 @@
 {
     "0" : {
         "message" : "First pokemon reward earned!",
-        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "poke_ball"}, "count" : 5}]
+        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"pixelmon:poke_ball" : "poke_ball"}, "count" : 5}]
     },
     "1" : {
         "message" : "1% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "poke_ball"}, "count" : 20},
+        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"pixelmon:poke_ball" : "poke_ball"}, "count" : 20},
                    {"itemID" : "pixelmon:exp_share", "count" : 1},
                    {"itemID" : "minecraft:iron_ingot", "count" : 1},
                    {"itemID" : "minecraft:gold_ingot", "count" : 1},
@@ -26,15 +26,14 @@
     },
     "5" : {
         "message" : "5% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "poke_ball"}, "count" : 64},
+        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"pixelmon:poke_ball" : "poke_ball"}, "count" : 64},
                    {"itemID" : "pixelmon:rare_candy", "count" : 5},
                    {"itemID" : "pixelmon:red_healer", "count" : 1},
                    {"itemID" : "pixelmon:red_pc", "count" : 1},
                    {"itemID" : "pixelmon:lucky_egg", "count" : 1},
                    {"itemID" : "pixelmon:macho_brace", "count" : 1},
                    {"itemID" : "minecraft:quartz", "count" : 1},
-                   {"itemID" : "minecraft:netherite_ingot", "count" : 1},
-                   {"itemID" : "projecte:dark_matter", "count" : 1}]
+                   {"itemID" : "minecraft:netherite_ingot", "count" : 1}]
     },
     "10" : {
         "message" : "10% Pokedex completion reward earned!",
@@ -56,7 +55,6 @@
     "15" : {
         "message" : "15% Pokedex completion reward earned!",
         "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 1},
                    {"itemID" : "pixelmon:red_trade_machine", "count" : 1},
                    {"itemID" : "pixelmon:fossil_cleaner", "count" : 1},
                    {"itemID" : "pixelmon:fossil_machine", "count" : 1},
@@ -66,16 +64,14 @@
     },
     "20" : {
         "message" : "20% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "master_ball"}, "count" : 1},
+        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"pixelmon:poke_ball" : "master_ball"}, "count" : 1},
                    {"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 2},
                    {"itemID" : "pixelmon:exp_all", "count" : 1}],
         "pokemon" : [{"species" : "random", "shiny" : true}]
     },
     "25" : {
         "message" : "25% Pokedex completion reward earned!",
         "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 3},
                    {"itemID" : "pixelmon:lucky_egg", "count" : 1},
                    {"itemID" : "pixelmon:fire_stone", "count" : 1},
                    {"itemID" : "pixelmon:water_stone", "count" : 1},
@@ -91,25 +87,22 @@
     },
     "30" : {
         "message" : "30% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "beast_ball"}, "count" : 10},
+        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"pixelmon:poke_ball" : "beast_ball"}, "count" : 10},
                    {"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 4},
                    {"itemID" : "pixelmon:orb", "count" : 1},
                    {"itemID" : "pixelmon:destiny_knot", "count" : 1}],
         "pokemon" : [{"species" : "random", "shiny" : true}]
     },
     "35" : {
         "message" : "35% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "gs_ball"}, "count" : 1},
+        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"pixelmon:poke_ball" : "gs_ball"}, "count" : 1},
                    {"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5},
                    {"itemID" : "pixelmon:lucky_egg", "count" : 1}]
     },
     "40" : {
         "message" : "40% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "master_ball"}, "count" : 1},
+        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"pixelmon:poke_ball" : "master_ball"}, "count" : 1},
                    {"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5},
                    {"itemID" : "pixelmon:clear_bell", "count" : 1},
                    {"itemID" : "pixelmon:tidal_bell", "count" : 1},
                    {"itemID" : "pixelmon:lucky_egg", "count" : 1}],
@@ -118,30 +111,26 @@
     "45" : {
         "message" : "45% Pokedex completion reward earned!",
         "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5},
                    {"itemID" : "pixelmon:orb", "count" : 1},
                    {"itemID" : "pixelmon:lucky_egg", "count" : 1}]
     },
     "50" : {
         "message" : "50% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "beast_ball"}, "count" : 32},
+        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"pixelmon:poke_ball" : "beast_ball"}, "count" : 32},
                    {"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5},
                    {"itemID" : "pixelmon:gold_bottle_cap", "count" : 1},
                    {"itemID" : "pixelmon:lucky_egg", "count" : 1}],
         "pokemon" : [{"species" : "randomLegendaryMythicalUltraBeast", "shiny" : true}, {"species" : "ditto", "perfect" : true}]
     },
     "55" : {
         "message" : "55% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5}],
+        "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5}],
         "pokemon" : [{"species" : "randomLegendaryMythicalUltraBeast"}]
     },
     "60" : {
         "message" : "60% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "master_ball"}, "count" : 1},
+        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"pixelmon:poke_ball" : "master_ball"}, "count" : 1},
                    {"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5},
                    {"itemID" : "pixelmon:gold_bottle_cap", "count" : 1},
                    {"itemID" : "pixelmon:blue_orb", "count" : 1},
                    {"itemID" : "pixelmon:red_orb", "count" : 1}],
@@ -149,14 +138,12 @@
     },
     "65" : {
         "message" : "65% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5}],
+        "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5}],
         "pokemon" : [{"species" : "randomLegendaryMythicalUltraBeast"}]
     },
     "70" : {
         "message" : "70% Pokedex completion reward earned!",
         "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5},
                    {"itemID" : "pixelmon:gold_bottle_cap", "count" : 1},
                    {"itemID" : "pixelmon:porygon_body", "count" : 1},
                    {"itemID" : "pixelmon:porygon_head", "count" : 1},
@@ -166,44 +153,37 @@
     },
     "75" : {
         "message" : "75% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5}],
+        "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5}],
         "pokemon" : [{"species" : "randomLegendaryMythicalUltraBeast", "shiny" : true}]
     },
     "80" : {
         "message" : "80% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "master_ball"}, "count" : 1},
+        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"pixelmon:poke_ball" : "master_ball"}, "count" : 1},
                    {"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5},
                    {"itemID" : "pixelmon:gold_bottle_cap", "count" : 1}],
         "pokemon" : [{"species" : "random", "shiny" : true}]
     },
     "85" : {
         "message" : "85% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5}],
+        "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5}],
         "pokemon" : [{"species" : "randomLegendaryMythicalUltraBeast"}]
     },
     "90" : {
         "message" : "90% Pokedex completion reward earned!",
         "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5},
                    {"itemID" : "pixelmon:gold_bottle_cap", "count" : 1}],
         "pokemon" : [{"species" : "random", "shiny" : true}]
     },
     "95" : {
         "message" : "95% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5}],
+        "items" : [{"itemID" : "pixelmon:rare_candy", "count" : 5}],
         "pokemon" : [{"species" : "randomLegendaryMythicalUltraBeast"}]
     },
     "100" : {
         "message" : "100% Pokedex completion reward earned!",
-        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"PokeBallID" : "master_ball"}, "count" : 1},
+        "items" : [{"itemID" : "pixelmon:poke_ball", "nbt" : {"pixelmon:poke_ball" : "master_ball"}, "count" : 1},
                    {"itemID" : "pixelmon:rare_candy", "count" : 5},
-                   {"itemID" : "projecte:red_matter", "count" : 5},
-                   {"itemID" : "pixelmon:gold_bottle_cap", "count" : 1},
-                   {"itemID" : "projecte:tome", "count" : 1}],
+                   {"itemID" : "pixelmon:gold_bottle_cap", "count" : 1}],
         "pokemon" : [{"species" : "randomLegendaryMythicalUltraBeast", "perfect" : true, "shiny" : true}, {"species" : "ditto", "perfect" : true, "shiny" : true}]
     }
 }

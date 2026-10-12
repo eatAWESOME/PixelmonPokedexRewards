@@ -7,117 +7,118 @@ import java.util.UUID;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage;
-import com.pixelmonmod.pixelmon.api.pokedex.PlayerPokedex;
-import com.pixelmonmod.pixelmon.api.pokemon.species.Pokedex;
+import com.pixelmonmod.pixelmon.api.pokedex.PokeDexStorageProxy;
+import com.pixelmonmod.pixelmon.api.pokedex.PokedexStorage;
+import com.pixelmonmod.pixelmon.api.pokedex.status.PokedexRegistrationStatus;
+import com.pixelmonmod.pixelmon.api.pokemon.PokemonBase;
 import com.pixelmonmod.pixelmon.api.pokemon.species.Species;
-import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
-
-import net.minecraft.command.Commands;
-import net.minecraft.command.ISuggestionProvider;
-import net.minecraft.command.CommandSource;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextComponent;
+import com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 
 public class PokedexCmd {
 
 	public PokedexCmd() {
     }
 	
-	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("pokedex")
 	            .executes(context -> {
-	            	ServerPlayerEntity player = context.getSource().getPlayerOrException();
-	            	PlayerPartyStorage partyStorage = StorageProxy.getParty(player);
-	            	PlayerPokedex playerPokedex = partyStorage.playerPokedex;
-	            	float seenPercentage = playerPokedex.getSeenCompletionPercentage();
-	                float caughtPercentage = playerPokedex.getCaughtCompletionPercentage();
-	                TextComponent message = new StringTextComponent(String.format("Your Pokédex Progress: Caught: %.2f%%, Seen: %.2f%%", caughtPercentage, seenPercentage));
-	                context.getSource().sendSuccess(message, false);
+	            	ServerPlayer player = context.getSource().getPlayerOrException();
+	            	PokedexStorage playerPokedex = PokeDexStorageProxy.getStorage(player).join();
+	            	double seenPercentage = playerPokedex.getPercentage(PokedexRegistrationStatus.SEEN) * 100.0;
+	            	double caughtPercentage = playerPokedex.getPercentage(PokedexRegistrationStatus.CAUGHT) * 100.0;
+	                Component message = Component.literal(String.format("Your PokÃ©dex Progress: Caught: %.2f%%, Seen: %.2f%%", caughtPercentage, seenPercentage));
+	                context.getSource().sendSuccess(() -> message, false);
 	                return Command.SINGLE_SUCCESS;
 	            })
             .then(Commands.argument("targetPlayer", StringArgumentType.word())
 	        		.suggests((context, builder) -> {
 	                    List<String> suggestions = new ArrayList<>();
 	                    File dataDir = new File("");
-		            	if (context.getSource().getServer().isDedicatedServer()) {
-			            	dataDir = new File(context.getSource().getServer().getServerDirectory(), context.getSource().getServer().getWorldData().getLevelName() + "/playerdata");
+	                    if (context.getSource().getServer().isDedicatedServer()) {
+		            		dataDir = context.getSource().getServer().getServerDirectory().resolve(context.getSource().getServer().getWorldData().getLevelName()).resolve("playerdata").toFile();
 		            	} else {
-		            		dataDir = new File(context.getSource().getServer().getServerDirectory(), "saves/" + context.getSource().getServer().getWorldData().getLevelName() + "/playerdata");
+		            		dataDir = context.getSource().getServer().getServerDirectory().resolve("saves").resolve(context.getSource().getServer().getWorldData().getLevelName()).resolve("playerdata").toFile();
 		            	}
 		            	File[] files = dataDir.listFiles((dir, name) -> name.endsWith(".dat"));
 		            	for (File file : files) {
 		                    try {
 		                        String uuidStr = file.getName().replace(".dat", "");
-		                        suggestions.add(context.getSource().getServer().getProfileCache().get(UUID.fromString(uuidStr)).getName());
+		                        suggestions.add(context.getSource().getServer().getProfileCache().get(UUID.fromString(uuidStr)).get().getName());
 		                    } catch (Exception e) {
 		                        e.printStackTrace();
 		                    }
 		                }
-	                    return ISuggestionProvider.suggest(suggestions, builder);
+	                    return SharedSuggestionProvider.suggest(suggestions, builder);
 	            	})
 	            	.executes(context -> {
 		                String targetName = StringArgumentType.getString(context, "targetPlayer");
-		                PlayerPartyStorage partyStorage = StorageProxy.getParty(context.getSource().getServer().getProfileCache().get(targetName).getId());
-		            	PlayerPokedex playerPokedex = partyStorage.playerPokedex;
-		            	float seenPercentage = playerPokedex.getSeenCompletionPercentage();
-		                float caughtPercentage = playerPokedex.getCaughtCompletionPercentage();
+		                UUID targetPlayerUUID = context.getSource().getServer().getProfileCache().get(targetName).get().getId();
+		                PokedexStorage playerPokedex = PokeDexStorageProxy.getStorage(targetPlayerUUID).join();
+		                double seenPercentage = playerPokedex.getPercentage(PokedexRegistrationStatus.SEEN) * 100.0;
+		            	double caughtPercentage = playerPokedex.getPercentage(PokedexRegistrationStatus.CAUGHT) * 100.0;
 		                if (caughtPercentage == 0) {
-		                	context.getSource().sendFailure(new StringTextComponent(targetName + " not found."));
+		                	context.getSource().sendFailure(Component.literal(targetName + " not found."));
 		                    return 0;
 		                }
-		                TextComponent message = new StringTextComponent(String.format(targetName + "'s Pokédex Progress: Caught: %.2f%%, Seen: %.2f%%", caughtPercentage, seenPercentage));
+		                Component message = Component.literal(String.format(targetName + "'s PokÃ©dex Progress: Caught: %.2f%%, Seen: %.2f%%", caughtPercentage, seenPercentage));
 		                if (targetName.equals(context.getSource().getPlayerOrException().getDisplayName().getString())) {
-		                	message = new StringTextComponent(String.format("Your Pokédex Progress: Caught: %.2f%%, Seen: %.2f%%", caughtPercentage, seenPercentage));
+		                	message = Component.literal(String.format("Your PokÃ©dex Progress: Caught: %.2f%%, Seen: %.2f%%", caughtPercentage, seenPercentage));
 		                }
-		                context.getSource().sendSuccess(message, false);
+		                final Component final_message = message;
+		                context.getSource().sendSuccess(() -> final_message, false);
 		                return Command.SINGLE_SUCCESS;
 	            	})
 		            .then(Commands.argument("targetPokemon", StringArgumentType.word())
 		            		.suggests((context, builder) -> {
 		            			List<String> suggestions = new ArrayList<>();
 		                        suggestions.add("disable");
-		                        for (Species pokedexSpecies : Pokedex.actualPokedex) {
+		                        for (Species pokedexSpecies : PixelmonSpecies.getAll()) {
 		                            suggestions.add(pokedexSpecies.getStrippedName());
 		                        }
-		                        return ISuggestionProvider.suggest(suggestions, builder);
+		                        return SharedSuggestionProvider.suggest(suggestions, builder);
 		                    })
 		                	.executes(context -> {
 		    	                String targetName = StringArgumentType.getString(context, "targetPlayer");
 		    	                String targetPokemon = StringArgumentType.getString(context, "targetPokemon");
-		    	                PlayerPartyStorage partyStorage = StorageProxy.getParty(context.getSource().getServer().getProfileCache().get(targetName).getId());
-		    	            	PlayerPokedex playerPokedex = partyStorage.playerPokedex;
-		    	                float caughtPercentage = playerPokedex.getCaughtCompletionPercentage();
+		    	                UUID targetPlayerUUID = context.getSource().getServer().getProfileCache().get(targetName).get().getId();
+		    	                PokedexStorage playerPokedex = PokeDexStorageProxy.getStorage(targetPlayerUUID).join();
+		    	            	double caughtPercentage = playerPokedex.getPercentage(PokedexRegistrationStatus.CAUGHT) * 100.0;
 		    	                if (caughtPercentage == 0) {
-		    	                	context.getSource().sendFailure(new StringTextComponent(targetName + " not found."));
+		    	                	context.getSource().sendFailure(Component.literal(targetName + " not found."));
 		    	                    return 0;
 		    	                }
 		    	                if (!validateSpecies(targetPokemon)) {
-		    	                	context.getSource().sendFailure(new StringTextComponent("Invalid target (" + targetPokemon + "). Entry must be pokémon species."));
+		    	                	context.getSource().sendFailure(Component.literal("Invalid target (" + targetPokemon + "). Entry must be pokÃ©mon species."));
 		    	                    return 0;
 		    	                }
 		    	                Species targetSpecies = getSpecies(targetPokemon);
+		    	                PokemonBase targetBase = new PokemonBase(targetSpecies);
 		    	                String status = "";
-		    	                if (playerPokedex.hasCaught(targetSpecies)) {
+		    	                if (playerPokedex.hasCaught(targetBase)) {
 		    	                	status = "caught";
-		    	                } else if (playerPokedex.hasSeen(targetSpecies)) {
+		    	                } else if (playerPokedex.hasSeen(targetBase)) {
 		    	                	status = "seen";
 		    	                } else {
 		    	                	status = "not seen";
 		    	                }
 		    	                String prefix = getPrefix(targetSpecies);
-		    	                TextComponent message = new StringTextComponent(targetName + " has " + status + prefix+ targetPokemon + ".");
+		    	                Component message = Component.literal(targetName + " has " + status + prefix+ targetPokemon + ".");
 		    	                if (targetName.equals(context.getSource().getPlayerOrException().getDisplayName().getString())) {
-		    	                	message = new StringTextComponent("You have " + status + prefix + targetPokemon + ".");
+		    	                	message = Component.literal("You have " + status + prefix + targetPokemon + ".");
 		    	                }
-		    	                context.getSource().sendSuccess(message, false);
+		    	                final Component final_message = message;
+				                context.getSource().sendSuccess(() -> final_message, false);
 		    	                return Command.SINGLE_SUCCESS;
 		                	}))));
 	}
-	
+		
 	public static boolean validateSpecies(String targetPokemon) {
-		for (Species pokedexSpecies : Pokedex.actualPokedex) {
+		for (Species pokedexSpecies : PixelmonSpecies.getAll()) {
             if (pokedexSpecies.getStrippedName().equals(targetPokemon)) {
             	return true;
             }
@@ -126,7 +127,7 @@ public class PokedexCmd {
 	}
 	
 	public static Species getSpecies(String targetPokemon) {
-		for (Species pokedexSpecies : Pokedex.actualPokedex) {
+		for (Species pokedexSpecies : PixelmonSpecies.getAll()) {
             if (pokedexSpecies.getStrippedName().equals(targetPokemon)) {
             	return pokedexSpecies;
             }

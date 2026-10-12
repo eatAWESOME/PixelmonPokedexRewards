@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.FileOutputStream;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.neoforged.fml.loading.FMLPaths;
 
 public class RewardConfigLoader {
     private static final String CONFIG_PATH = FMLPaths.CONFIGDIR.get().resolve("PixelmonPokedexRewards.json").toString();
@@ -25,9 +25,9 @@ public class RewardConfigLoader {
             System.out.println("[PixelmonPokedexRewards] Config not found. Creating default config...");
             copyDefaultRewardConfig(configFile);
         }
+        
         try (Reader reader = new InputStreamReader(new FileInputStream(CONFIG_PATH), StandardCharsets.UTF_8)) {
-            JsonParser parser = new JsonParser();
-            rewardConfigData = (JsonObject) parser.parse(reader);
+            rewardConfigData = JsonParser.parseReader(reader).getAsJsonObject();
             System.out.println("[PixelmonPokedexRewards] Config loaded successfully!");
         } catch (Exception e) {
             System.err.println("[PixelmonPokedexRewards] Failed to load config: " + e.getMessage());
