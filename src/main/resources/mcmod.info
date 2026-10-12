@@ -1,8 +1,8 @@
 {
-  "modid": "pixelmonpokedexrewards",
-  "name": "PixelmonPokedexRewards",
+  "modid": "${mod_id}",
+  "name": "${mod_name}",
   "description": "Rewards for progressing to completing the Pokedex in Pixelmon",
-  "version": "1.0.3",
+  "version": "${mod_version}"",
   "authorList": [
     "Alden Tilley"
   ],
@@ -11,21 +11,21 @@
   "screenshots": [],
   "dependencies": [
     {
-      "modid": "forge",
+      "modid": "neoforge",
       "mandatory": true,
-      "versionRange": "[36,)",
+      "versionRange": "[${neo_version},)",
       "side": "BOTH"
     },
     {
       "modid": "minecraft",
       "mandatory": true,
-      "versionRange": "[1.16.5,)",
+      "versionRange": "${minecraft_version_range}",
       "side": "BOTH"
     },
     {
       "modid": "pixelmon",
       "mandatory": true,
-      "versionRange": "[9.1,)",
+      "versionRange": "${pixelmon_version_range}",
       "side": "BOTH"
     }
   ]
