@@ -8,7 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public class PokedexDataAttachment implements IPokedexDataAttachment, INBTSerializable<CompoundTag> {
-	private static final String POKEDEX_REWARDS_LEVEL = "pokedexRewardsLevel";
+    private static final String POKEDEX_REWARDS_LEVEL = "pokedexRewardsLevel";
     private static final String CLAIMED_POKEDEX_REWARDS = "claimedPokedexRewards";
 
     private int pokedexRewardsLevel = 0;

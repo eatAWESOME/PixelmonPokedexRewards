@@ -21,28 +21,28 @@ import org.apache.logging.log4j.Logger;
 @Mod(PixelmonPokedexRewards.MOD_ID)
 public class PixelmonPokedexRewards {
 
-	public static final String MOD_ID = "pixelmonpokedexrewards";
-	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-	
-	private static PixelmonPokedexRewards instance;
-	
-	private JsonObject rewardConfig;
-	
+    public static final String MOD_ID = "pixelmonpokedexrewards";
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    
+    private static PixelmonPokedexRewards instance;
+    
+    private JsonObject rewardConfig;
+    
     public PixelmonPokedexRewards(IEventBus modEventBus) {
         instance = this;
-    	reloadConfig();
+        reloadConfig();
 
-    	AttachmentHandler.ATTACHMENT_TYPES.register(modEventBus);
-    	modEventBus.addListener(PixelmonPokedexRewards::onModLoad);
+        AttachmentHandler.ATTACHMENT_TYPES.register(modEventBus);
+        modEventBus.addListener(PixelmonPokedexRewards::onModLoad);
         NeoForge.EVENT_BUS.register(this);
     }
 
     public static void onModLoad(FMLCommonSetupEvent event) {
-    	Pixelmon.EVENT_BUS.register(new PokedexListener());
+        Pixelmon.EVENT_BUS.register(new PokedexListener());
     }
 
     public void reloadConfig() {
-    	this.rewardConfig = RewardConfigLoader.reloadRewardConfig();
+        this.rewardConfig = RewardConfigLoader.reloadRewardConfig();
     }
     
     @SubscribeEvent
