@@ -1,8 +1,8 @@
-package eatAWESOME.pixelmonpokedexrewards.events;
+package eatawesome.pixelmonpokedexrewards.events;
 
-import eatAWESOME.pixelmonpokedexrewards.commands.PokedexRewards;
-import eatAWESOME.pixelmonpokedexrewards.data.AttachmentHandler;
-import eatAWESOME.pixelmonpokedexrewards.data.PokedexDataAttachment;
+import eatawesome.pixelmonpokedexrewards.commands.PokedexRewards;
+import eatawesome.pixelmonpokedexrewards.data.AttachmentHandler;
+import eatawesome.pixelmonpokedexrewards.data.PokedexDataAttachment;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -13,7 +13,6 @@ import com.pixelmonmod.pixelmon.api.pokedex.PokedexStorage;
 import com.pixelmonmod.pixelmon.api.pokedex.event.PokedexEvent;
 import com.pixelmonmod.pixelmon.api.pokedex.status.PokedexRegistrationStatus;
 import com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies;
-
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.minecraft.network.chat.Component;

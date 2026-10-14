@@ -1,8 +1,8 @@
-package eatAWESOME.pixelmonpokedexrewards.commands;
+package eatawesome.pixelmonpokedexrewards.commands;
 
-import eatAWESOME.pixelmonpokedexrewards.PixelmonPokedexRewards;
-import eatAWESOME.pixelmonpokedexrewards.data.AttachmentHandler;
-import eatAWESOME.pixelmonpokedexrewards.data.PokedexDataAttachment;
+import eatawesome.pixelmonpokedexrewards.PixelmonPokedexRewards;
+import eatawesome.pixelmonpokedexrewards.data.AttachmentHandler;
+import eatawesome.pixelmonpokedexrewards.data.PokedexDataAttachment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,6 @@ import com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies;
 import com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
 import com.pixelmonmod.pixelmon.init.registry.PixelmonDataComponents;
-
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.component.DataComponents;

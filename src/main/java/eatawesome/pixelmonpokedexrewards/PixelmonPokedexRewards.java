@@ -1,11 +1,11 @@
-package eatAWESOME.pixelmonpokedexrewards;
+package eatawesome.pixelmonpokedexrewards;
 
-import eatAWESOME.pixelmonpokedexrewards.events.PokedexListener;
-import eatAWESOME.pixelmonpokedexrewards.commands.PokedexCmd;
-import eatAWESOME.pixelmonpokedexrewards.commands.PokedexRewards;
-import eatAWESOME.pixelmonpokedexrewards.commands.PokedexTop;
-import eatAWESOME.pixelmonpokedexrewards.config.RewardConfigLoader;
-import eatAWESOME.pixelmonpokedexrewards.data.AttachmentHandler;
+import eatawesome.pixelmonpokedexrewards.commands.PokedexCmd;
+import eatawesome.pixelmonpokedexrewards.commands.PokedexRewards;
+import eatawesome.pixelmonpokedexrewards.commands.PokedexTop;
+import eatawesome.pixelmonpokedexrewards.config.RewardConfigLoader;
+import eatawesome.pixelmonpokedexrewards.data.AttachmentHandler;
+import eatawesome.pixelmonpokedexrewards.events.PokedexListener;
 
 import com.google.gson.JsonObject;
 import com.pixelmonmod.pixelmon.Pixelmon;

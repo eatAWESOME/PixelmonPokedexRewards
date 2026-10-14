@@ -1,11 +1,11 @@
-package eatAWESOME.pixelmonpokedexrewards.data;
+package eatawesome.pixelmonpokedexrewards.data;
 
-import eatAWESOME.pixelmonpokedexrewards.PixelmonPokedexRewards;
+import eatawesome.pixelmonpokedexrewards.PixelmonPokedexRewards;
+
+import java.util.function.Supplier;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
-
-import java.util.function.Supplier;
 
 public final class AttachmentHandler {
     private AttachmentHandler() {

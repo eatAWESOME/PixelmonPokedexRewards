@@ -1,9 +1,7 @@
-package eatAWESOME.pixelmonpokedexrewards.config;
+package eatawesome.pixelmonpokedexrewards.config;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import eatawesome.pixelmonpokedexrewards.PixelmonPokedexRewards;
 
-import eatAWESOME.pixelmonpokedexrewards.PixelmonPokedexRewards;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -12,6 +10,8 @@ import java.io.IOException;
 import java.io.FileOutputStream;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.neoforged.fml.loading.FMLPaths;
 
 public class RewardConfigLoader {

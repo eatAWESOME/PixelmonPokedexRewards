@@ -1,4 +1,4 @@
-package eatAWESOME.pixelmonpokedexrewards.data;
+package eatawesome.pixelmonpokedexrewards.data;
 
 import java.util.List;
 

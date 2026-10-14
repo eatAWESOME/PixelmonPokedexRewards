@@ -1,4 +1,4 @@
-package eatAWESOME.pixelmonpokedexrewards.commands;
+package eatawesome.pixelmonpokedexrewards.commands;
 
 import java.io.File;
 import java.util.ArrayList;
